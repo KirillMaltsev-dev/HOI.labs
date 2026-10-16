@@ -10,15 +10,7 @@ public final class ProtocolCodec {
     }
 
     public static ByteBuffer encodeRequest(String name) {
-        Objects.requireNonNull(name, "name");
-        if (name.isEmpty() || name.length() > ProtocolLimits.MAX_NAME_BYTES) {
-            throw new IllegalArgumentException("Name length must be 1.." + ProtocolLimits.MAX_NAME_BYTES);
-        }
-        for (int i = 0; i < name.length(); i++) {
-            if (name.charAt(i) < 0x20 || name.charAt(i) > 0x7E) {
-                throw new IllegalArgumentException("Name must contain printable ASCII only");
-            }
-        }
+        new ClientName(name);
         ByteBuffer result = ByteBuffer.allocate(name.length() + 1);
         result.put(name.getBytes(StandardCharsets.US_ASCII)).put((byte) 0);
         return result.flip();

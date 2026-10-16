@@ -50,6 +50,7 @@ out/
 # Ключи и результаты запуска
 keys/
 client-output/
+client-*.crt
 *.key
 *.pem
 *.p12
